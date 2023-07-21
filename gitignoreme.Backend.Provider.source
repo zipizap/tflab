@@ -1,0 +1,72 @@
+#export BACKEND_PROVIDER="RemoteBackend_ProviderViaSPN"    # "RemoteBackend_ProviderViaSPN" or "LocalBackend_ProviderAzLogin"
+export BACKEND_PROVIDER="LocalBackend_ProviderAzLogin"    # "RemoteBackend_ProviderViaSPN" or "LocalBackend_ProviderAzLogin"
+
+if [[ $BACKEND_PROVIDER == "RemoteBackend_ProviderViaSPN" ]]; then
+  ###################################################
+  # Setup Provider
+  ###################################################
+  # --- main.tf ---
+  # provider "azurerm" {
+  #   version = "~> 2.0"
+  #   features {}
+  # }
+  # ---------------
+
+  ## Change these
+  export ARM_CLIENT_ID=xxxxxxxxxxxxxx
+  export ARM_CLIENT_SECRET=xxxxxxxxxxxxxx
+  export ARM_SUBSCRIPTION_ID=xxxxxxxxxxxx
+  export ARM_TENANT_ID=xxxxxxxxxxxx
+
+
+  ###################################################
+  # Setup remoteBackend
+  ###################################################
+  # --- main.tf ---
+  # terraform {
+  #   backend "azurerm" {}
+  # }
+  # ---------------
+
+  ## Change these
+  export AZURERM_Backend_RG_NAME=xxxxxxxxxxxxx
+  export AZURERM_Backend_STA_NAME=xxxxxxxxxxxxxxx
+  export AZURERM_Backend_STA_CONTAINER_KEY_NAME=xxxxxxxxxxxxxx
+
+  ## Dont change these
+  export AZURERM_Backend_STA_CONTAINER_NAME=tfstate
+    # Container must alreay exist, so leave unchanged to reuse "tfstate"
+    #   AZURERM_Backend_STA_CONTAINER_NAME=tfstate
+  export AZURERM_Backend_TENANT_ID=$ARM_TENANT_ID
+  export AZURERM_Backend_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID
+  export AZURERM_Backend_CLIENT_ID=$ARM_CLIENT_ID
+  export AZURERM_Backend_CLIENT_SECRET=$ARM_CLIENT_SECRET
+
+elif [[ $BACKEND_PROVIDER == "LocalBackend_ProviderAzLogin" ]]; then
+  ###################################################
+  # Setup Provider (SPN: xxxxxx)
+  ###################################################
+  # just "az login"
+  :
+
+  ###################################################
+  # Setup remoteBackend
+  ###################################################
+  # terraform {
+  #   backend "local" {}
+  # }
+  :
+fi
+
+
+
+################## scripts vars ###################
+export THE_TFVARS_FILE=variables.tfvars
+#export TF_LOG="${TF_LOG:-DEBUG}"        # TRACE DEBUG INFO WARN ERROR off
+export THE_TFPLAN_FILE=gitignoreme.lastplan.tfplan
+
+
+#### others
+# SPN
+# az login --service-principal -u uuuuuuuuuuuuuuu -p pppppppppppppppppppppp --tenant tttttttttttttttttttttttt
+
