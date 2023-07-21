@@ -4,8 +4,9 @@ locals {
     "key1" = "val1"
     "key2" = "val2"
   }
-
 }
+
+
 
 
 output "localmap_native" {

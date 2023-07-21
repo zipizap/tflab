@@ -18,3 +18,4 @@ resource "local_file" "mylocalfile" {
   filename = "${path.module}/mylocalfile.txt"
   file_permission = "0600"
 }
+
