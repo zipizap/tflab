@@ -1,3 +1,4 @@
+# https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
 terraform {
   backend "azurerm" {}
 }
