@@ -7,9 +7,11 @@ locals {
       path = "./local.backend.L1b"
     }
   }
-  RepoRootDir = split("/", get_path_from_repo_root())[0]     # terragrunt-tests
-  L1Dir = split("/", get_path_from_repo_root())[1]           #   L1a
-  L2Dir = split("/", get_path_from_repo_root())[2]           #     L2a
+  RepoRootDir = basename(get_repo_root())                    # terragrunt-tests
+  L1Dir = split("/", get_path_from_repo_root())[0]           #   L1a
+  L2Dir = split("/", get_path_from_repo_root())[1]           #     L2a
+}
+
 }
 
 remote_state {
