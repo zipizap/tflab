@@ -12,7 +12,6 @@ locals {
   L2Dir = split("/", get_path_from_repo_root())[1]           #     L2a
 }
 
-}
 
 remote_state {
   backend = "local"
